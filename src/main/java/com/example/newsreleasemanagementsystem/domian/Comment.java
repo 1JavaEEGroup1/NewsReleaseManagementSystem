@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -23,13 +20,13 @@ public class Comment {
     private final Long commentId;
 
     @ManyToOne(targetEntity = User.class)
-    private final Long authorId;
+    private final User author;
 
     @ManyToOne(targetEntity = Comment.class)
-    private final Long fatherId;
+    private final Comment comment;
 
     @ManyToOne(targetEntity = New.class)
-    private final Long newId;
+    private final New news;
 
     private String content;
     private Integer state;

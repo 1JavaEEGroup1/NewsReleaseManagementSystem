@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,17 +15,17 @@ import java.util.Date;
  */
 @Data
 @Entity
-@RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-public class Column {
+@RequiredArgsConstructor
+public class Program {
     @Id
-    private final Long columnId;
+    private final Long programId;
 
     @ManyToOne(targetEntity = User.class)
-    private final Long authorId;
+    private final User user;
 
-    @ManyToOne(targetEntity = Column.class)
-    private final Long fatherId;
+    @ManyToOne(targetEntity = Program.class)
+    private final Program father;
 
     private String name;
     private Date createId;

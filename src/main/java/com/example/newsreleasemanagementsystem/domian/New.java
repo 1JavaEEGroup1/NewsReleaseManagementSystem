@@ -19,11 +19,11 @@ public class New {
     @Id
     private final Long newsId;
 
-    @ManyToOne(targetEntity = Column.class)
-    private final Long columnId;
+    @ManyToOne(targetEntity = Program.class)
+    private final Program program;
 
     @ManyToOne(targetEntity = User.class)
-    private final Long authorId;
+    private final User author;
 
     private String title;
     private String img;

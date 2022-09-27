@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/newsmanagement
+    username: root
+    password: 020202jhl
+
+  jpa:
+    generate-ddl: true
+
+

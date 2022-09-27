@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,7 +24,7 @@ public class HeadlineNew {
     private final Long headlineId;
 
     @OneToOne(targetEntity = New.class)
-    private final Long newsId;
+    private final New news;
 
     private BigDecimal score;
     private Date releaseTime;
