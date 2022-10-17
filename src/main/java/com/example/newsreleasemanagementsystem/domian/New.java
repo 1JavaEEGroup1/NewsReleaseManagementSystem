@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author jhlyh
@@ -22,6 +24,8 @@ public class New {
     private String title;
     private String artist;
     private String imgUrl;
+    private Date CreateTime;
+    private Integer viewTimes;
 
     @ManyToOne
     @JoinTable(
@@ -30,4 +34,15 @@ public class New {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private User author;
+
+    @OneToMany(mappedBy = "aNew")
+    private Set<Comment> commentSet;
+
+    @ManyToMany
+    @JoinTable(
+            name = "new_label",
+            joinColumns = @JoinColumn(name = "new_id"),
+            inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
+    private Set<Label> labels;
 }

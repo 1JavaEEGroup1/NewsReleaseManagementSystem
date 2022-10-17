@@ -1,10 +1,10 @@
 package com.example.newsreleasemanagementsystem.repository;
 
-import com.example.newsreleasemanagementsystem.domian.New;
+import com.example.newsreleasemanagementsystem.domian.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author jhlyh
  */
-public interface NewRepository extends JpaRepository<New, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 }

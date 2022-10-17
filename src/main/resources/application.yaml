@@ -6,6 +6,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+    open-in-view: true
 #  jpa:
 #    generate-ddl: true
 
