@@ -1,10 +1,13 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/newsmanagement
-    username: root
-    password: 020202jhl
-
+    url: jdbc:mysql://114.132.251.197:3306/	newsmanagement
+    username: newsmanagement
+    password: dcBYr6tYbPkCyM5Z
   jpa:
-    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+#  jpa:
+#    generate-ddl: true
+
 
 

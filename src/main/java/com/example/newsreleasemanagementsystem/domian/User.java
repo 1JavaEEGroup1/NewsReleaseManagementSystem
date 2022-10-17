@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author jhlyh
@@ -18,13 +17,13 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PRIVATE,force = true)
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private final Long userId;
 
     private String name;
     private String password;
-    private String email;
-    private String img;
     private Integer userType;
-    private Date createTime;
-    private Date freshTime;
+
+    @OneToMany(mappedBy = "author")
+    private Set<New> newSet;
 }

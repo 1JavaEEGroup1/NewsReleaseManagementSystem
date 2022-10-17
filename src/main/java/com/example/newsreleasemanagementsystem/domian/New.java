@@ -6,30 +6,28 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @author jhlyh
  */
-@Data
 @Entity
+@Data
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE,force = true)
 public class New {
     @Id
-    private final Long newsId;
-
-    @ManyToOne(targetEntity = Program.class)
-    private final Program program;
-
-    @ManyToOne(targetEntity = User.class)
-    private final User author;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final Long newId;
 
     private String title;
-    private String img;
-    private String content;
-    private Date releaseTime;
-    private Date freshTime;
-    private Integer pageView;
-    private Integer commentNum;
+    private String artist;
+    private String imgUrl;
+
+    @ManyToOne
+    @JoinTable(
+            name = "author_new",
+            joinColumns = @JoinColumn(name = "new_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private User author;
 }
