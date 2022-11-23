@@ -1,48 +1,53 @@
 package com.example.newsreleasemanagementsystem.domian;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * @author jhlyh
- */
-@Entity
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@Entity
 @RequiredArgsConstructor
-public class New {
+@NoArgsConstructor(access = AccessLevel.PUBLIC,force = true)
+public class New implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long newId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private final Long id;
 
+    private static final long serialVersionUID = 1L;
+    //封面
+    private String coverUrl;
+    //标题
     private String title;
-    private String artist;
-    private String imgUrl;
-    private Date CreateTime;
-    private Integer viewTimes;
-
+    //内容
+    private String content;
+    //发布时间
+    private Date publishTime;
+    //作者
     @ManyToOne
-    @JoinTable(
-            name = "author_new",
-            joinColumns = @JoinColumn(name = "new_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+    @JoinColumn(name = "author_id")
+    @JsonIgnoreProperties({"email,password,phone,bio,news,roles,idols,fans"})
     private User author;
-
-    @OneToMany(mappedBy = "aNew")
-    private Set<Comment> commentSet;
-
-    @ManyToMany
-    @JoinTable(
-            name = "new_label",
-            joinColumns = @JoinColumn(name = "new_id"),
-            inverseJoinColumns = @JoinColumn(name = "label_id")
-    )
-    private Set<Label> labels;
+    //新闻状态
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private State state;
+    //标签
+    @ManyToMany(mappedBy = "news")
+    @JsonIgnoreProperties({"news"})
+    private Set<Topic> topics;
+    //已阅读人数
+    private static Integer readNum;
+    //点赞人数
+    private static Integer likeNum;
+    //评论
+    @OneToMany
+    @JoinColumn(name = "comment_id")
+    private Set<Comment> comments;
 }
