@@ -1,4 +1,5 @@
 spring:
+#mysql
   datasource:
     url: jdbc:mysql://gz-cdb-rtzggr55.sql.tencentcdb.com:56814/newsmanagement
     username: user
@@ -12,9 +13,27 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: true
+#redis
+  redis:
+    database: 0
+    host:  114.132.251.197
+    port: 6379
+    password: 789456123@qq.com
+    lettuce:
+      pool:
+        min-idle: 0
+        max-active: 8
+        max-wait: -1ms
+    connect-timeout: 30000ms
+  data:
+    redis:
+      repositories:
+        enabled: false
 
+#jwt
 jhlyh:
   app:
     jwtCookieName: jhlyh
     jwtSecret: jhlyhKey
     jwtExpirationMs: 60000
+
