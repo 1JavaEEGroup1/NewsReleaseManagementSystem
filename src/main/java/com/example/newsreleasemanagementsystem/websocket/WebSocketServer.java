@@ -10,6 +10,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 @Slf4j
@@ -18,7 +19,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint("/api/websocket/{tid}")
 public class WebSocketServer {
 
-    private RedisServise redisServise = SpringUtil.getBean(RedisServise.class);
+    private static RedisServise redisServise = SpringUtil.getBean(RedisServise.class);
 
     //静态变量，用来记录当前连接数。应该设计为线程安全的。
     private static int onlineCount = 0;
@@ -97,7 +98,6 @@ public class WebSocketServer {
                 throw new RuntimeException(e);
             }
         }
-        //群发消息
     }
     @OnError
     public void onError(Session session, Throwable error) {
@@ -132,6 +132,34 @@ public class WebSocketServer {
         }
         if(sign == false) {
             redisServise.addSet(sid, content);
+        }
+    }
+
+    /**
+     * 新增新闻推送
+     * @param message
+     * @param target
+     * @throws IOException
+     */
+    public static void pushInfo(String message, List<String> target) throws IOException {
+        for(String t : target) {
+            for(WebSocketServer item : webSocketServers) {
+                try {
+                    if(item.tid.equals(t)) {
+                        item.sendMessage(message);
+                        target.remove(t);
+                        break;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    continue;
+                }
+            }
+        }
+        if(target.size() > 0) {
+            for(String t : target) {
+                redisServise.addSet(t, message);
+            }
         }
     }
 
