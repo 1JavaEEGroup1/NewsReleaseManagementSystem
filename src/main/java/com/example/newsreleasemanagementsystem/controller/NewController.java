@@ -3,10 +3,16 @@ package com.example.newsreleasemanagementsystem.controller;
 import com.example.newsreleasemanagementsystem.domian.EState;
 import com.example.newsreleasemanagementsystem.domian.New;
 import com.example.newsreleasemanagementsystem.domian.State;
+import com.example.newsreleasemanagementsystem.domian.User;
 import com.example.newsreleasemanagementsystem.repository.NewRepository;
 import com.example.newsreleasemanagementsystem.repository.StateRepository;
 import com.example.newsreleasemanagementsystem.util.ResponseResult;
+import com.example.newsreleasemanagementsystem.websocket.WebSocketServer;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -25,7 +31,18 @@ public class NewController {
      */
     @PostMapping("/add")
     public ResponseResult<?> addNew(@RequestBody New news) {
-        return ResponseResult.success(newRepository.save(news));
+        New aNew = newRepository.save(news);
+        User author = aNew.getAuthor();
+        List<String> fans = new ArrayList<>();
+        for(User fan : author.getFans()) {
+            fans.add(String.valueOf(fan.getId()));
+        }
+        try {
+            WebSocketServer.pushInfo(String.valueOf(author.getId()), fans);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseResult.success(aNew);
     }
 
     /**

@@ -17,6 +17,7 @@ import scala.Serializable;
 import scala.Tuple2;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,7 +32,10 @@ public class SparkServiceImlpl implements SparkService , Serializable {
     private static List<String> file;
 
     public static void caculate() {
-        Path path = Paths.get("E:\\News\\NewsReleaseManagementSystem\\src\\main\\resources\\data.csv");
+        //部署
+        Path path = Paths.get("/Temp/ratings.csv");
+        //本地
+//        Path path = Paths.get("src/main/resources/ratings.csv");
         try {
             List<String > file = Files.readAllLines(path);
             SparkServiceImlpl.file = file;
