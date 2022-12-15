@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.io.Serial;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @Service
 @NoArgsConstructor
 public class UserDetailslmpl implements UserDetails {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private Long id;

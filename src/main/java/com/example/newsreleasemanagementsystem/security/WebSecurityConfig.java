@@ -61,8 +61,9 @@ public class WebSecurityConfig {
                 //测试接口
                 .authorizeHttpRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/**").permitAll()
+                .anyRequest().permitAll();
                 //其他
-                .anyRequest().authenticated();
+                //.anyRequest().authenticated();
         httpSecurity.authenticationProvider(authenticationProvider());
         httpSecurity.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();

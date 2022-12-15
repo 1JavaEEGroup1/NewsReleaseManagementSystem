@@ -1,5 +1,6 @@
 package com.example.newsreleasemanagementsystem;
 
+import com.example.newsreleasemanagementsystem.spark.Spark;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
