@@ -10,9 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties
 public class SparkConfigration {
-    private String sparkHome = ".";
 
-    private String appName = "sparkPatrol";
+    private String appName = "jhlyh";
 
     private String master = "local";
     @Bean

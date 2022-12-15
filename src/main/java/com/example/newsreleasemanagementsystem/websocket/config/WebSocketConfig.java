@@ -1,4 +1,4 @@
-package com.example.newsreleasemanagementsystem.websocket;
+package com.example.newsreleasemanagementsystem.websocket.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
