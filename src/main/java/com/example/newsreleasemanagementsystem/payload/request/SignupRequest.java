@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Set;
+import java.util.List;
 
 @Data
 public class SignupRequest {
@@ -16,5 +16,5 @@ public class SignupRequest {
     @NotBlank
     private String password;
 
-    private Set<String> role;
+    private List<String> role;
 }

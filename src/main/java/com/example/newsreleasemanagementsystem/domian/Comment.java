@@ -27,13 +27,14 @@ public class Comment implements Serializable {
     //评论人
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonIgnoreProperties({"email,password,phone,bio,news,roles,idols,fans"})
+    @JsonIgnoreProperties({"username","email","password","phone","bio","headshotsUrl","state","news","roles","idols","fans"})
     private User author;
     //评论状态
     @ManyToOne
     @JoinColumn(name = "state_id")
+    @JsonIgnoreProperties({"name"})
     private State state;
     //点赞数
-    private static Integer likeNum;
+    private Integer likeNum;
     //二级评论
 }

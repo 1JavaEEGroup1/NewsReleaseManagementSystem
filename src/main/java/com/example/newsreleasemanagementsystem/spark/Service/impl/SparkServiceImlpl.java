@@ -33,9 +33,9 @@ public class SparkServiceImlpl implements SparkService , Serializable {
 
     public static void caculate() {
         //部署
-        Path path = Paths.get("/Temp/ratings.csv");
+//        Path path = Paths.get("/Temp/ratings.csv");
         //本地
-//        Path path = Paths.get("src/main/resources/ratings.csv");
+        Path path = Paths.get("src/main/resources/ratings.csv");
         try {
             List<String > file = Files.readAllLines(path);
             SparkServiceImlpl.file = file;

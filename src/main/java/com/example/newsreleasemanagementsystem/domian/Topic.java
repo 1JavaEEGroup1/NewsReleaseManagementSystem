@@ -1,5 +1,7 @@
 package com.example.newsreleasemanagementsystem.domian;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -25,12 +28,7 @@ public class Topic implements Serializable {
     //标签封面
     private String coverUrl;
     //所含新闻
-    @ManyToMany
-    @JoinTable(
-            joinColumns = @JoinColumn(name = "topic_id"),
-            inverseJoinColumns = @JoinColumn(name = "new_id")
-    )
-    @OrderBy("publishTime")
-    @JsonIgnoreProperties({"topics,comments"})
-    private Set<New> news;
+    @ManyToMany(mappedBy = "topics")
+    @JsonIgnoreProperties({"coverUrl","title","content","publishTime","author","state","topics","readNum","likeNum","comments"})
+    private List<New> news;
 }

@@ -22,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -78,8 +79,8 @@ public class AuthController {
                 signupRequest.getEmail(),
                 passwordEncoder.encode(signupRequest.getPassword()));
 
-        Set<String> strRoles = signupRequest.getRole();
-        Set<Role> roles = new HashSet<>();
+        List<String> strRoles = signupRequest.getRole();
+        List<Role> roles = new ArrayList<>();
 
         if(strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
@@ -121,7 +122,7 @@ public class AuthController {
                     }
             );
         }
-        user.setRoles(roles);
+        user.setRoles((List<Role>) roles);
         userRepository.save(user);
         return ResponseResult.success("User registered successfully!");
     }

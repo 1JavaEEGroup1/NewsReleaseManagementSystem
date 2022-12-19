@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -37,16 +38,18 @@ public class User implements Serializable {
     //用户状态
     @ManyToOne
     @JoinColumn(name = "state_id")
+    @JsonIgnoreProperties({"name"})
     private State state;
     //收藏新闻
     @OneToMany
     @JoinColumn(name = "bookmark")
-    @JsonIgnoreProperties({"comments"})
-    private Set<New> news;
+    @JsonIgnoreProperties({"coverUrl","title","content","publishTime","author","state","topics","readNum","likeNum","comments"})
+    private List<New> news;
     //角色权限
     @ManyToMany
     @JoinColumn(name = "role")
-    private Set<Role> roles;
+    @JsonIgnoreProperties({"name"})
+    private List<Role> roles;
     //偶像
     @ManyToMany
     @JoinTable(
@@ -54,12 +57,12 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "fan"),
             inverseJoinColumns = @JoinColumn(name = "idol")
     )
-    @JsonIgnoreProperties({"fans,idols,roles,news"})
-    private Set<User> idols;
+    @JsonIgnoreProperties({"username","email","password","phone","bio","headshotsUrl","state","news","roles","idols","fans"})
+    private List<User> idols;
     //粉丝
     @ManyToMany(mappedBy = "idols")
-    @JsonIgnoreProperties({"fans,idols,roles,news"})
-    private Set<User> fans;
+    @JsonIgnoreProperties({"username","email","password","phone","bio","headshotsUrl","state","news","roles","idols","fans"})
+    private List<User> fans;
 
     public User(String username, String email, String encode) {
         this();

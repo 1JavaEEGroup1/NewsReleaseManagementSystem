@@ -1,6 +1,8 @@
 package com.example.newsreleasemanagementsystem.domian;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,22 +35,24 @@ public class New implements Serializable {
     //作者
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonIgnoreProperties({"email,password,phone,bio,news,roles,idols,fans"})
+    @JsonIgnoreProperties({"username","email","password","phone","bio","headshotsUrl","state","news","roles","idols","fans"})
     private User author;
     //新闻状态
     @ManyToOne
     @JoinColumn(name = "state_id")
+    @JsonIgnoreProperties({"name"})
     private State state;
     //标签
-    @ManyToMany(mappedBy = "news")
-    @JsonIgnoreProperties({"news"})
-    private Set<Topic> topics;
+    @ManyToMany
+    @JsonIgnoreProperties({"name","coverUrl","news"})
+    private List<Topic> topics;
     //已阅读人数
-    private static Integer readNum;
+    private Integer readNum;
     //点赞人数
-    private static Integer likeNum;
+    private Integer likeNum;
     //评论
     @OneToMany
     @JoinColumn(name = "comment_id")
-    private Set<Comment> comments;
+    @JsonIgnoreProperties({"content","publishTime","author","state","likeNum"})
+    private List<Comment> comments;
 }

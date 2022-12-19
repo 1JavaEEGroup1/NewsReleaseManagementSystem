@@ -6,6 +6,7 @@ import com.example.newsreleasemanagementsystem.domian.State;
 import com.example.newsreleasemanagementsystem.domian.User;
 import com.example.newsreleasemanagementsystem.repository.NewRepository;
 import com.example.newsreleasemanagementsystem.repository.StateRepository;
+import com.example.newsreleasemanagementsystem.repository.UserRepository;
 import com.example.newsreleasemanagementsystem.util.ResponseResult;
 import com.example.newsreleasemanagementsystem.websocket.WebSocketServer;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +21,12 @@ import java.util.List;
 public class NewController {
     private NewRepository newRepository;
     private StateRepository stateRepository;
+    private UserRepository userRepository;
 
-    public NewController(NewRepository newRepository, StateRepository stateRepository) {
+    public NewController(NewRepository newRepository, StateRepository stateRepository, UserRepository userRepository) {
         this.newRepository = newRepository;
         this.stateRepository = stateRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -32,7 +35,7 @@ public class NewController {
     @PostMapping("/add")
     public ResponseResult<?> addNew(@RequestBody New news) {
         New aNew = newRepository.save(news);
-        User author = aNew.getAuthor();
+        User author = userRepository.findById(aNew.getAuthor().getId()).get();
         List<String> fans = new ArrayList<>();
         for(User fan : author.getFans()) {
             fans.add(String.valueOf(fan.getId()));
