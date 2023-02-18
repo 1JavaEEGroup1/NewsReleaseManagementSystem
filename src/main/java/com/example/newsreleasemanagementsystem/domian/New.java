@@ -35,7 +35,7 @@ public class New implements Serializable {
     //作者
     @ManyToOne
     @JoinColumn(name = "author_id")
-    @JsonIgnoreProperties({"username","email","password","phone","bio","headshotsUrl","state","news","roles","idols","fans"})
+    @JsonIgnoreProperties({"email","password","phone","bio","headshotsUrl","state","news","roles","idols","fans"})
     private User author;
     //新闻状态
     @ManyToOne

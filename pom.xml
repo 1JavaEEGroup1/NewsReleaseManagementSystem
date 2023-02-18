@@ -12,6 +12,7 @@
     <artifactId>NewsReleaseManagementSystem</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>NewsReleaseManagementSystem</name>
+    <packaging>jar</packaging>
     <description>NewsReleaseManagementSystem</description>
     <properties>
         <java.version>11</java.version>

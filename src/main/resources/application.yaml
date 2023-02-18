@@ -1,9 +1,9 @@
 spring:
 #mysql
   datasource:
-    url: jdbc:mysql://gz-cdb-rtzggr55.sql.tencentcdb.com:56814/newsmanagement
-    username: user
-    password: 789456123@qqcom
+    url: jdbc:mysql://gz-cynosdbmysql-grp-0bw9tbgz.sql.tencentcdb.com:20771/news
+    username: jhlyh
+    password: 020202jhl@qq.com
   jpa:
     hibernate:
       ddl-auto: update
@@ -30,10 +30,15 @@ spring:
       repositories:
         enabled: false
 
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 #jwt
 jhlyh:
   app:
     jwtCookieName: jhlyh
     jwtSecret: jhlyhKey
     jwtExpirationMs: 60000
+
 

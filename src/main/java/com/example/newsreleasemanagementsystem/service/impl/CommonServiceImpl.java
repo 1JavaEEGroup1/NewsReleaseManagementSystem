@@ -39,22 +39,26 @@ public class CommonServiceImpl implements CommonService {
         boolean result = false;
         FTPClient ftpClient = new FTPClient();
         try {
+            ftpClient.enterLocalPassiveMode();
             int reply;
             ftpClient.connect(commonProps.getFtpHost(), port);
-            ftpClient.login(commonProps.getFtpUserName(), commonProps.getFtpPassword());
+
+            System.out.println(ftpClient.login(commonProps.getFtpUserName(), commonProps.getFtpPassword()));
             reply = ftpClient.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftpClient.disconnect();
                 return ResponseResult.fail(String.valueOf(result));
             }
+
             ftpClient.changeWorkingDirectory(path);
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             ftpClient.storeFile(fileName, multipartFile.getInputStream());
+
         } catch (Exception e) {
             return ResponseResult.success(e.toString());
         }
 
-        return ResponseResult.success(commonProps.getNginxPath() + fileName);
+        return ResponseResult.success(commonProps.getNginxPath() + path + "/" + fileName);
     }
 
 }

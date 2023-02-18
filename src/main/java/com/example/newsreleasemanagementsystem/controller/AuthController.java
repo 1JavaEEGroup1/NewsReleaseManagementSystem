@@ -59,8 +59,8 @@ public class AuthController {
                 .body(
                        ResponseResult.success(new UserInfoResponse(
                                userDetails.getId(),
-                               userDetails.getUsername(),
                                userDetails.getEmail(),
+                               userDetails.getUsername(),
                                roles
                        ))
                 );
